@@ -1,4 +1,4 @@
-FROM haproxytech/haproxy-alpine:2.3.9
+FROM haproxytech/haproxy-alpine:latest
 
 LABEL maintainer="u1234x1234@gmail.com"
 ENV USERNAME torpool

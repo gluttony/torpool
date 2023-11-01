@@ -1,5 +1,6 @@
 import argparse
 import os
+import glob
 import re
 import signal
 from subprocess import Popen, check_call
@@ -63,6 +64,12 @@ def prepare_privoxy_config(
 
 def run_privoxy_process(tor_id):
     os.makedirs("/var/run/privoxy", exist_ok=True)
+
+    files = glob.glob("/etc/privoxy/*.new")
+    for file in files:
+        splitted = file.split('.')
+        new_name = ".".join(splitted[:-1])
+        os.rename(file, new_name)
 
     default_config_path = "/etc/privoxy/config"
     new_config_path = "/etc/privoxy/config{}".format(tor_id)
