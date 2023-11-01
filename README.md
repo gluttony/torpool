@@ -15,23 +15,23 @@ Containerized pool of multiple Tor instances with load balancing and HTTP proxy.
 * Does not using root user inside Docker
 
 ```
-              +-----------------------------------------------+           
-              | Docker                                        |           
-              |                                               |           
-              |                   +-------+            +----+ |           
-              |                   |Privoxy|------------|Tor1| |           
-              |                   +-------+        |   +----+ |           
-+------+      | +-------+         +-------+        |   +----+ |           
-|Client|--------|Haproxy|-------- |Privoxy|--------|---|Tor2| |           
-+------+      | +-------+         +-------+        |   +----+ |           
-              |     |             +-------+        |   +----+ |           
-              |     |             |Privoxy|--------|---|Tor3| |           
-              |     |             +-------+        |   +----+ |           
-              |     |                              |          |           
-              |     |                              |          |           
-              |     +------------------------------+          |           
-              |                                               |           
-              +-----------------------------------------------+           
+              +-----------------------------------------------+
+              | Docker                                        |
+              |                                               |
+              |                   +-------+            +----+ |
+              |                   |Privoxy|------------|Tor1| |
+              |                   +-------+        |   +----+ |
++------+      | +-------+         +-------+        |   +----+ |
+|Client|--------|Haproxy|-------- |Privoxy|--------|---|Tor2| |
++------+      | +-------+         +-------+        |   +----+ |
+              |     |             +-------+        |   +----+ |
+              |     |             |Privoxy|--------|---|Tor3| |
+              |     |             +-------+        |   +----+ |
+              |     |                              |          |
+              |     |                              |          |
+              |     +------------------------------+          |
+              |                                               |
+              +-----------------------------------------------+
 ```
 
 # Usage
@@ -46,7 +46,7 @@ HTTP proxy is accessible at port 9300:
 curl --proxy localhost:9300 http://ipinfo.io/ip
 ```
 
-Socks is accessible at port 9200: 
+Socks is accessible at port 9200:
 ```bash
 curl --socks5 localhost:9200 http://ipinfo.io/ip
 ```
@@ -59,6 +59,11 @@ docker run -d -p 9200:9200 -p 9300:9300 u1234x1234/torpool:1.0.3 --MaxCircuitDir
 Use only US exit nodes:
 ```
 docker run -d -p 9200:9200 -p 9300:9300 u1234x1234/torpool:1.0.3 --ExitNodes {us}
+```
+
+Tor connections through the SOCKS5 proxy
+```
+docker run -d -p 9200:9200 -p 9300:9300 u1234x1234/torpool:1.0.3 --Socks5Proxy 192.168.1.100:1080
 ```
 
 [List of available Tor options](https://www.torproject.org/docs/tor-manual.html.en)
